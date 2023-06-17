@@ -47,6 +47,8 @@ export function prim(...args) {
   return new _prim(...args);
 } // End of 'prim' function
 
+const start = Date.now();
+
 export function primDraw(Pr, cam, World) {
   let w = MatrMulMatr(Pr.Trans, World);
   //console.log(Pr.Trans);
@@ -67,6 +69,11 @@ export function primDraw(Pr, cam, World) {
   if (loc3 != null)
     Pr.gl.uniformMatrix4fv(loc3, false, new Float32Array(winw.toArray()));
 
+    const timeFromStart = Date.now() - start;
+    let loc4 = Pr.gl.getUniformLocation(Pr.shader, "Time");
+    if (loc4 != null)
+      Pr.gl.uniform1f(loc4, timeFromStart);
+  
   if (Pr.IBuf != undefined) {
     Pr.gl.bindBuffer(Pr.gl.ELEMENT_ARRAY_BUFFER, Pr.IBuf);
     Pr.gl.drawElements(

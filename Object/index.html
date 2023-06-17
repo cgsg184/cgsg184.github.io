@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>platonic solids</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="ICON" href="./bin/favcgsg2.png" type="image/png" />
+</head>
+
+<body>
+    <a style="text-decoration: none" href="../index.html">
+        < back </a><br />
+            <p id="fps">30</p>
+            <canvas id="glCanvas" width="800" height="800"></canvas>
+            <script type="module">
+                import { system, _system, mat4, _mat4, vec3, _vec3, getTextFromFile } from "./all_h.js";
+
+                window.addEventListener("load", () => {
+                    let sys = system("glCanvas");
+                    let mtlPat = sys.render.mtlpatCreate("P(f3), N(f3)", "Ka(f3), Kd(f3), Ks(f3), Ph(f1)", "./shaders/3d", 0);
+                    let mtl = sys.render.mtlCreate("mtl_name", mtlPat, "Ka(1, 1, 1), Ks(3, 3, 1), Kd(1.6, 10, 1), Ph(30)");
+                    let prim1 = sys.render.prim();
+                    prim1
+                        .objLoad(sys.render.gl, "./bin/cow.object", "triangle", mtl)
+                        .then((res) => {
+                            prim1.draw(mat4());
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
+                    let x = 0, y = 0;
+                    const def = vec3(30, 20, 0);
+                    let loc = vec3(30, 20, 0);
+
+                    const draw = () => {
+                        prim1.draw(mat4());
+                        sys.render.camera.set(loc, vec3(0), vec3(0, 1, 0));
+
+                        //loc = mat4().rotateY(Math.sin(y += sys.render.timer.globalDeltaTime / 2) * 2 + sys.render.timer.globalTime * 4).pointTransform(def);
+                        //loc = vec3(1, 2, 3);
+
+                        sys.render.start();
+
+                        sys.render.end();
+                        window.requestAnimationFrame(draw);
+                    }
+                    draw();
+
+                });
+            </script>
+</body>
+
+</html>

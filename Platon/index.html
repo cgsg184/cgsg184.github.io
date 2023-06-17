@@ -2,16 +2,37 @@
 <html>
     <head>
         <title>AP4</title>
+        <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <br><b>Is this PLATON???</b>
+        <div>
+            <input type="radio" id="Tetrahedron" name="body" value="tetrahedron">
+            <label for="bodyChoise1">Tetrahedron</label>
+
+            <input type="radio" id="Cube" name="body" value="cube" checked>
+            <label for="bodyChoise1">Cube</label>
+
+            <input type="radio" id="Octahedron" name="body" value="octahedron">
+            <label for="bodyChoise1">Octahedron</label>
+
+            <input type="radio" id="Icosahedron" name="body" value="icosahedron">
+            <label for="bodyChoise1">Icosahedron</label>
+
+            <input type="radio" id="Dodecahedron" name="body" value="dodecahedron">
+            <label for="bodyChoise1">Dodecahedron</label>
+        </div>
+
         <canvas id="glCanvas" width="1000px" height="1000px"></canvas>
+
+        <!-- <br>Привет<b> мир</b> -->
         <script type="module">
             import { initGL } from "./render/render.js";
             window.addEventListener("load", () => {
                 initGL();
             });
         </script>
+
+
         
     </body>
 </html>
